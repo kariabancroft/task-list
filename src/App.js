@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TaskGroup from './components/TaskGroup';
 
 class App extends Component {
   constructor() {
@@ -67,13 +67,34 @@ class App extends Component {
       ]
     }
   }
+
+  groupedTasks = () => {
+    const groups = this.state.taskData.reduce((result, task) => {
+      if (result[task.group]) {
+        result[task.group].push(task);
+      } else {
+        result[task.group] = [task];
+      }
+      return result;
+    }, {});
+
+    return groups;
+  }
+
   render() {
+    const groupedTasks = this.groupedTasks();
+
+    const groups = Object.keys(groupedTasks).map((groupName, index) => {
+      return <TaskGroup key={ index } name={ groupName } tasks={ groupedTasks[groupName] }/>
+    });
+
+    console.log(this.groupedTasks());
     return (
       <div className="app">
         <header>
           Things To Do
         </header>
-        Task groups go here...
+        { groups }
       </div>
     );
   }
