@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Group from '../assets/images/Group.svg';
+import TaskGroupList from './TaskGroupList';
 
 class TaskGroup extends Component {
   static propTypes = {
@@ -15,11 +16,14 @@ class TaskGroup extends Component {
 
     return (
       <section className="task-group">
-        <img src={ Group }/>
-        { this.props.name }
-        <p className="background">
-          { completedCount } OF { this.props.tasks.length }
-        </p>
+        <section className="task-group-overview">
+          <img src={ Group }/>
+          { this.props.name }
+          <p className="background">
+            { completedCount } OF { this.props.tasks.length }
+          </p>
+        </section>
+        <TaskGroupList tasks={ this.props.tasks } />
       </section>
     );
   }
