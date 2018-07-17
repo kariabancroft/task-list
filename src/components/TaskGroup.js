@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Group from '../assets/images/Group.svg';
-import TaskGroupList from './TaskGroupList';
+import TaskList from './TaskList';
 
 class TaskGroup extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class TaskGroup extends Component {
 
     let taskList = "";
     if (this.state.showTaskList) {
-      taskList = <TaskGroupList tasks={ this.props.tasks } />;
+      taskList = <TaskList tasks={ this.props.tasks } />;
     }
 
     return (

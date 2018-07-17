@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
 
-class TaskGroupList extends Component {
+class TaskList extends Component {
   static propTypes = {
     tasks: PropTypes.array.isRequired
   }
@@ -20,4 +20,4 @@ class TaskGroupList extends Component {
   }
 }
 
-export default TaskGroupList;
+export default TaskList;
