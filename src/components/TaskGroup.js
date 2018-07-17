@@ -9,21 +9,39 @@ class TaskGroup extends Component {
     tasks: PropTypes.array.isRequired
   }
 
+  constructor() {
+    super();
+
+    this.state = {
+      showTaskList: false
+    };
+  }
+
+  onGroupClick = () => {
+    // Toggle the value to show or hide the list
+    this.setState({ showTaskList: !this.state.showTaskList });
+  }
+
   render() {
     const completedCount = this.props.tasks.reduce((total, task) => {
       return (task.completedAt !== null) ? total + 1: total;
     }, 0);
 
+    let taskList = "";
+    if (this.state.showTaskList) {
+      taskList = <TaskGroupList tasks={ this.props.tasks } />;
+    }
+
     return (
       <section className="task-group">
-        <section className="task-group-overview">
+        <section className="task-group-overview" onClick={ this.onGroupClick }>
           <img src={ Group }/>
           { this.props.name }
           <p className="background">
             { completedCount } OF { this.props.tasks.length }
           </p>
         </section>
-        <TaskGroupList tasks={ this.props.tasks } />
+        { taskList }
       </section>
     );
   }
