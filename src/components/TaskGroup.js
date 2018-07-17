@@ -6,7 +6,8 @@ import TaskList from './TaskList';
 class TaskGroup extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    tasks: PropTypes.array.isRequired
+    tasks: PropTypes.array.isRequired,
+    statusCallback: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -29,13 +30,13 @@ class TaskGroup extends Component {
 
     let taskList = "";
     if (this.state.showTaskList) {
-      taskList = <TaskList tasks={ this.props.tasks } />;
+      taskList = <TaskList tasks={ this.props.tasks } statusCallback={ this.props.statusCallback }/>;
     }
 
     return (
       <section className="task-group">
         <section className="task-group-overview" onClick={ this.onGroupClick }>
-          <img src={ Group }/>
+          <img src={ Group } alt="group arrow"/>
           { this.props.name }
           <p className="background">
             { completedCount } OF { this.props.tasks.length }

@@ -6,6 +6,10 @@ class App extends Component {
   constructor() {
     super();
 
+    this.COMPLETE = "complete";
+    this.INCOMPLETE = "incomplete";
+    this.LOCKED = "locked";
+
     this.state = {
       taskData: [
         {
@@ -81,11 +85,27 @@ class App extends Component {
     return groups;
   }
 
+  getStatus = (taskId) => {
+    const task = this.state.taskData.find((task) => { return task.id === taskId });
+    if (!task) {
+      console.warn(`Task ID ${taskId} not loaded.`);
+    } else {
+      for (let id of task.dependencyIds) {
+        if (this.getStatus(id) === this.INCOMPLETE) {
+          return this.LOCKED;
+        }
+      }
+      // All dependencies are complete or non-existent
+      return (task.completedAt !== null) ? this.COMPLETE : this.INCOMPLETE;
+    }
+  }
+
   render() {
     const groupedTasks = this.groupedTasks();
 
     const groups = Object.keys(groupedTasks).map((groupName, index) => {
-      return <TaskGroup key={ index } name={ groupName } tasks={ groupedTasks[groupName] }/>
+      return <TaskGroup key={ index } name={ groupName } tasks={ groupedTasks[groupName] }
+        statusCallback={ this.getStatus }/>
     });
 
     return (
