@@ -88,7 +88,6 @@ class App extends Component {
       return <TaskGroup key={ index } name={ groupName } tasks={ groupedTasks[groupName] }/>
     });
 
-    console.log(this.groupedTasks());
     return (
       <div className="app">
         <header>
