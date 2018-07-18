@@ -7,7 +7,8 @@ class TaskGroup extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     tasks: PropTypes.array.isRequired,
-    statusCallback: PropTypes.func.isRequired
+    statusCallback: PropTypes.func.isRequired,
+    completedCallback: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -30,7 +31,9 @@ class TaskGroup extends Component {
 
     let taskList = "";
     if (this.state.showTaskList) {
-      taskList = <TaskList tasks={ this.props.tasks } statusCallback={ this.props.statusCallback }/>;
+      taskList = <TaskList tasks={ this.props.tasks }
+        statusCallback={ this.props.statusCallback }
+        completedCallback={ this.props.completedCallback } />;
     }
 
     return (

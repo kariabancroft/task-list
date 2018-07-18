@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 class Task extends Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
-    status: PropTypes.string.isRequired
+    status: PropTypes.string.isRequired,
+    completedCallback: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -17,10 +18,17 @@ class Task extends Component {
     };
   }
 
+  clickTask = (event, id) => {
+    if (this.props.status !== "locked") {
+      this.props.completedCallback(id);
+    }
+  }
+
   render() {
     return (
-      <section className="task">
-        <img src={ this.images[this.props.status] }/>
+      <section className={ "task task-" + this.props.status }
+        onClick={(e) => { this.clickTask(e, this.props.data.id) }}>
+        <img src={ this.images[this.props.status] } alt={ this.props.status }/>
         { this.props.data.task }
       </section>
     );

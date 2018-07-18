@@ -6,7 +6,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.COMPLETE = "complete";
+    this.COMPLETE = "completed";
     this.INCOMPLETE = "incomplete";
     this.LOCKED = "locked";
 
@@ -100,12 +100,23 @@ class App extends Component {
     }
   }
 
+  taskCompleted = (taskId) => {
+    let updatedData = this.state.taskData;
+    let task = updatedData.find((task) => { return task.id === taskId });
+
+    // Toggle completion
+    task.completedAt = (task.completedAt != null) ? null : new Date();
+
+    this.setState({ taskData: updatedData });
+  }
+
   render() {
     const groupedTasks = this.groupedTasks();
 
     const groups = Object.keys(groupedTasks).map((groupName, index) => {
       return <TaskGroup key={ index } name={ groupName } tasks={ groupedTasks[groupName] }
-        statusCallback={ this.getStatus }/>
+        statusCallback={ this.getStatus }
+        completedCallback={ this.taskCompleted }/>
     });
 
     return (
