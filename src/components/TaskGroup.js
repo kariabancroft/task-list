@@ -11,7 +11,7 @@ class TaskGroup extends Component {
     completedCallback: PropTypes.func.isRequired
   }
 
-  constructor() {
+  constructor(props) {
     super();
 
     this.state = {
@@ -41,9 +41,9 @@ class TaskGroup extends Component {
         <section className="task-group-overview" onClick={ this.onGroupClick }>
           <img src={ Group } alt="group arrow"/>
           { this.props.name }
-          <p className="background">
-            { completedCount } OF { this.props.tasks.length }
-          </p>
+          <div className="background">
+            { completedCount } OF { this.props.tasks.length } TASKS COMPLETE
+          </div>
         </section>
         { taskList }
       </section>
