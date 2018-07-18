@@ -19,3 +19,11 @@
 .task-group-list {
   grid-column-start: 2;
 }
+
+.task-locked {
+  color: gray;
+}
+
+img {
+  margin-right: 5px;
+}
